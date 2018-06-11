@@ -1,4 +1,4 @@
-
+#!/usr/bin/env node
 
 /* eslint-disable */
 const fs = require('fs');
@@ -21,45 +21,46 @@ let storybookFileExportedFileDifference = 0;
 let coveragePercentage = 0;
 let coverageStyling = '';
 
-exportedModules.forEach(exportedModule => {
-  if(allStoryBookFiles.includes(exportedModule)){
-    exportedAndHasStory.push(exportedModule);
-  };
-});
+module.exports = storybookCoverage;
+function storybookCoverage() {
+  exportedModules.forEach(exportedModule => {
+    if(allStoryBookFiles.includes(exportedModule)){
+      exportedAndHasStory.push(exportedModule);
+    };
+  });
 
-allStoryBookFiles.forEach(storyBookFile => {
-  if(!exportedModules.includes(storyBookFile)){
-    storyWithNoExport.push(storyBookFile);
+  allStoryBookFiles.forEach(storyBookFile => {
+    if(!exportedModules.includes(storyBookFile)){
+      storyWithNoExport.push(storyBookFile);
+    }
+  });
+
+  storybookFileExportedFileDifference = allStoryBookFiles.length - exportedAndHasStory.length
+  coveragePercentage = round(exportedAndHasStory.length/exportedModules.length*100, 2);
+
+  coverageStyling = coveragePercentage < 100 ? 'bold.red' : 'bold.green';
+
+  console.log(chalk`
+  Storybook Files: {bold ${allStoryBookFiles.length}}
+  Exported modules: {bold ${exportedModules.length}}
+  Exported and has a story: {bold ${exportedAndHasStory.length}}
+  -------------------------
+  {${coverageStyling} Storybook Coverage: ${coveragePercentage}}
+  `);
+
+  if(storybookFileExportedFileDifference){
+    console.warn(chalk
+      `{yellow You have ${storybookFileExportedFileDifference} Storybook files with no corresponding export!}`);
   }
-});
 
-storybookFileExportedFileDifference = allStoryBookFiles.length - exportedAndHasStory.length
-coveragePercentage = round(exportedAndHasStory.length/exportedModules.length*100, 2);
-
-// coveragePercentage = 100;
-
-coverageStyling = coveragePercentage < 100 ? 'bold.red' : 'bold.green';
-
-console.log(chalk`
-Storybook Files: {bold ${allStoryBookFiles.length}}
-Exported modules: {bold ${exportedModules.length}}
-Exported and has a story: {bold ${exportedAndHasStory.length}}
--------------------------
-{${coverageStyling} Storybook Coverage: ${coveragePercentage}}
-`);
-
-if(storybookFileExportedFileDifference){
-  console.warn(chalk
-    `{yellow You have ${storybookFileExportedFileDifference} Storybook files with no corresponding export!}`);
-}
-
-if(coveragePercentage < 100){
-  console.log(chalk
-    `
-    {red STORYBOOK COVERAGE MUST BE 100% IN ORDER TO MAKE A COMMIT!!!}
-    `
-  );
-  process.exit(1);
-} else {
-  process.exit(0);
+  if(coveragePercentage < 100){
+    console.log(chalk
+      `
+      {red STORYBOOK COVERAGE MUST BE 100% IN ORDER TO MAKE A COMMIT!!!}
+      `
+    );
+    process.exit(1);
+  } else {
+    process.exit(0);
+  }
 }
