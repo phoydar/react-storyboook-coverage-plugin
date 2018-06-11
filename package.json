@@ -1,0 +1,14 @@
+{
+  "name": "stroybook-coverage",
+  "version": "1.0.0",
+  "description": "Calculates storybook coverage of exported react modules",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Patrick Hoydar",
+  "license": "ISC",
+  "dependencies": {
+    "walk-sync": "^0.3.2"
+  }
+}
