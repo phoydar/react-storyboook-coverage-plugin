@@ -7,11 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "storybookCoverage" : "./index.js"
+    "storybook-coverage": "./index.js"
   },
   "author": "Patrick Hoydar",
   "license": "ISC",
   "dependencies": {
+    "npm": "^6.1.0",
     "walk-sync": "^0.3.2"
   },
   "devDependencies": {
