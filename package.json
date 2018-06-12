@@ -13,9 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "npm": "^6.1.0",
-    "walk-sync": "^0.3.2"
-  },
-  "devDependencies": {
+    "walk-sync": "^0.3.2",
     "chalk": "^2.4.1"
   }
 }
