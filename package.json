@@ -1,13 +1,13 @@
 {
   "name": "@salesloft/react-storybook-coverage-plugin",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Calculates storybook coverage of exported react modules",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "storybook-coverage": "./index.js"
+    "storybook-coverage": "./bin/react-storybook-coverage-plugin.js"
   },
   "author": "Patrick Hoydar",
   "license": "ISC",
