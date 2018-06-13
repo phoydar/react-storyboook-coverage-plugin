@@ -1,9 +1,6 @@
-const config = require('./config.json');
 const getFilePaths = require('./getFilePaths');
 
-const walkSyncStoryBookFilesConfig = config.walkSyncStoryBookFilesConfig;
-
-const getAllStoryBookFiles = testDirectory => {
+const getAllStoryBookFiles = (testDirectory, walkSyncStoryBookFilesConfig) => {
   let allFilePaths = getFilePaths(testDirectory, walkSyncStoryBookFilesConfig);
   let allStorybookNames = [];
 
@@ -12,9 +9,7 @@ const getAllStoryBookFiles = testDirectory => {
 
     const match = filePath.match(regex);
 
-    if(match){
-      allStorybookNames.push(match[1]);
-    }
+    allStorybookNames.push(match[1]);
   });
 
   return allStorybookNames;

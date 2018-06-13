@@ -1,17 +1,12 @@
 const walkSync = require('walk-sync');
 
-const config = require('./config.json');
-
-const testDirectory = config.testDirectory;
-
-
-const getFilePaths = (dir, walkSyncConfig) => {
-  const entrypointFileList = walkSync(testDirectory, walkSyncConfig);
+const getFilePaths = (testDirectory, walkSyncConfig) => {
+  const fileList = walkSync(testDirectory, walkSyncConfig);
 
   let allFilePaths = [];
 
-  entrypointFileList.forEach((file) => {
-    const fullPath = `${dir}/${file}`;
+  fileList.forEach((file) => {
+    const fullPath = `${testDirectory}/${file}`;
 
     allFilePaths.push(fullPath);
   });

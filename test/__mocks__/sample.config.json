@@ -1,0 +1,17 @@
+{
+  "testDirectory": "/Users/patrickhoydar/src/melody/sl-components/src",
+  "ignoredExportedModules": [
+    "MelodySvg",
+    "MelodyTheme"
+  ],
+  "walkSyncStoryBookFilesConfig": {
+    "globs": [
+      "**/*.stories.js"
+    ]
+  },
+  "walkSyncEntryPointFilesConfig": {
+    "globs": [
+      "**/index.js"
+    ]
+  }
+}

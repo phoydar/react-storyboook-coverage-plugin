@@ -1,16 +1,35 @@
 const fs = require('fs');
 const walkSync = require('walk-sync');
 const chalk = require('chalk');
+const cosmiconfig = require('cosmiconfig');
+const merge = require('deepmerge');
 
 const round = require('./round');
-const config = require('./config.json');
+const defaultConfig = require('./config.json');
 const getExportedModuleNames = require('./getExportedModuleNames');
 const getAllStorybookFiles = require('./getAllStoryBookFiles');
 
-const testDirectory = config.testDirectory;
+// get user defined config
+const explorer = cosmiconfig('reactStorybookCoverage');
+const userConfig = explorer.searchSync();
 
-const exportedModules = getExportedModuleNames(testDirectory);
-const allStoryBookFiles = getAllStorybookFiles(testDirectory);
+let config = {};
+// default config options
+if(userConfig){
+  config = merge(defaultConfig, userConfig.config);
+} else {
+  config = defaultConfig;
+}
+
+console.log(__dirname);
+const testDirectory = `${config.testDirectory}`;
+const walkSyncStoryBookFilesConfig = config.walkSyncStoryBookFilesConfig;
+const walkSyncEntryPointFilesConfig = config.walkSyncEntryPointFilesConfig;
+
+console.log(testDirectory);
+
+const allStoryBookFiles = getAllStorybookFiles(testDirectory, walkSyncStoryBookFilesConfig);
+const exportedModules = getExportedModuleNames(testDirectory, walkSyncEntryPointFilesConfig);
 
 let storyWithNoExport = [];
 let exportedAndHasStory = [];
@@ -66,7 +85,7 @@ ${storyWithNoExport.join('\n')}
   }
 
   if(coveragePercentage < 100){
-    console.log(chalk`{white.bold.bgRed  STORYBOOK COVERAGE MUST BE 100% IN ORDER TO MAKE A COMMIT!!! }
+    console.log(chalk`{white.bold.bgRed  STORYBOOK COVERAGE MUST BE 100% IN ORDER TO PUSH TO REMOTE!!! }
 Use the flag {bold.magenta  --no-verify } to override the pre-push hook
     `
     );

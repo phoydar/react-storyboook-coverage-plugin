@@ -3,10 +3,8 @@ const fs = require('fs');
 const config = require('./config.json');
 const getFilePaths = require('./getFilePaths');
 
-const walkSyncEntryPointFilesConfig = config.walkSyncEntryPointFilesConfig;
-
-const entrypointFiles = (dir) => {
-  let allFilePaths = getFilePaths(dir, walkSyncEntryPointFilesConfig);
+const getExportedModuleNames = (testDirectory, walkSyncEntryPointFilesConfig) => {
+  let allFilePaths = getFilePaths(testDirectory, walkSyncEntryPointFilesConfig);
   let allLines = getAllLines(allFilePaths);
   let exportedModuleNames = getModuleNames(allLines);
 
@@ -46,4 +44,4 @@ const getAllLines = allFilePaths => {
   return allLines;
 }
 
-module.exports = entrypointFiles;
+module.exports = getExportedModuleNames;

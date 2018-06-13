@@ -1,0 +1,1 @@
+export { MelodySvg } from './MelodySvg';

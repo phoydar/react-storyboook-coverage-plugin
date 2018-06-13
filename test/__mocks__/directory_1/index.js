@@ -1,0 +1,1 @@
+export { exportedModule } from 'assert';
