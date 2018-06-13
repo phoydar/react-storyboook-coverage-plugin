@@ -21,12 +21,9 @@ if(userConfig){
   config = defaultConfig;
 }
 
-console.log(__dirname);
 const testDirectory = `${config.testDirectory}`;
 const walkSyncStoryBookFilesConfig = config.walkSyncStoryBookFilesConfig;
 const walkSyncEntryPointFilesConfig = config.walkSyncEntryPointFilesConfig;
-
-console.log(testDirectory);
 
 const allStoryBookFiles = getAllStorybookFiles(testDirectory, walkSyncStoryBookFilesConfig);
 const exportedModules = getExportedModuleNames(testDirectory, walkSyncEntryPointFilesConfig);
