@@ -4,10 +4,19 @@
   "description": "Calculates storybook coverage of exported react modules",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "test:coverage": "npm test -- --coverage",
+    "test:badges": "npm run test:coverage  && jest-coverage-badges"
   },
   "bin": {
     "storybook-coverage": "./bin/react-storybook-coverage-plugin.js"
+  },
+  "jest": {
+    "coverageReporters": [
+      "json-summary",
+      "text",
+      "lcov"
+    ]
   },
   "author": "Patrick Hoydar",
   "license": "ISC",
@@ -15,6 +24,7 @@
     "chalk": "^2.4.1",
     "cosmiconfig": "^5.0.5",
     "deepmerge": "^2.1.1",
+    "jest-coverage-badges": "^1.0.0",
     "npm": "^6.1.0",
     "walk-sync": "^0.3.2"
   },
