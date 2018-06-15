@@ -1,5 +1,6 @@
 #!/usr/bin/env node
+"use strict";
 
-const storybookCoverage = require('../index');
+const storybookCoverage = require('../src/index');
 
 storybookCoverage();

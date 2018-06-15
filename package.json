@@ -1,12 +1,15 @@
 {
   "name": "@salesloft/react-storybook-coverage-plugin",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Calculates storybook coverage of exported react modules",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint ./",
     "test": "jest",
     "test:coverage": "npm test -- --coverage",
-    "test:badges": "npm run test:coverage  && jest-coverage-badges"
+    "test:badges": "npm run test:coverage  && jest-coverage-badges",
+    "prettier:format": "prettier --config .prettierrc --write \"{src,test}/*.js\"",
+    "prettier:check": "prettier --config .prettierrc --list-different \"{src,test}/*.js\""
   },
   "bin": {
     "storybook-coverage": "./bin/react-storybook-coverage-plugin.js"
@@ -23,13 +26,18 @@
   "dependencies": {
     "chalk": "^2.4.1",
     "cosmiconfig": "^5.0.5",
-    "deepmerge": "^2.1.1",
-    "jest-coverage-badges": "^1.0.0",
+    "husky": "^0.14.3",
+    "lodash": "^4.17.10",
     "npm": "^6.1.0",
     "walk-sync": "^0.3.2"
   },
   "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-node": "^3.0.0",
+    "eslint-plugin-node": "^6.0.1",
     "jest": "^23.1.0",
-    "mock-fs": "^4.5.0"
+    "jest-coverage-badges": "^1.0.0",
+    "mock-fs": "^4.5.0",
+    "prettier": "^1.13.5"
   }
 }
