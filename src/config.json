@@ -1,5 +1,6 @@
 {
   "testDirectory": "/Users/patrickhoydar/src/melody/sl-components/src",
+  "passingCoveragePercentage": 70,
   "ignoredExportedModules": [
     "MelodySvg",
     "MelodyTheme"

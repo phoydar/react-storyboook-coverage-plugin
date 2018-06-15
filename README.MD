@@ -16,7 +16,7 @@ npm react-storybook-coverage-plugin --registry=https://npms.salesloft.com
 
 ## Usage
 
-TODO
+Add npm script to package.json that can run at a chosen time.
 
 ## License
 
