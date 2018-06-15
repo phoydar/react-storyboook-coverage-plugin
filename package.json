@@ -4,12 +4,14 @@
   "description": "Calculates storybook coverage of exported react modules",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint ./",
+    "prepublish": "jest && npm run prettier:check && npm run eslint:check",
     "test": "jest",
-    "test:coverage": "npm test -- --coverage",
+    "test:coverage": "npm run test -- --coverage",
     "test:badges": "npm run test:coverage  && jest-coverage-badges",
     "prettier:format": "prettier --config .prettierrc --write \"{src,test}/*.js\"",
-    "prettier:check": "prettier --config .prettierrc --list-different \"{src,test}/*.js\""
+    "prettier:check": "prettier --config .prettierrc --list-different \"{src,test}/*.js\"",
+    "eslint:fix": "eslint --fix \"{src,test}/*.js\"",
+    "eslint:check": "eslint \"{src,test}/*.js\" --quiet"
   },
   "bin": {
     "storybook-coverage": "./bin/react-storybook-coverage-plugin.js"
@@ -34,6 +36,7 @@
   "devDependencies": {
     "eslint": "^4.19.1",
     "eslint-config-node": "^3.0.0",
+    "eslint-config-recommended": "^3.0.0",
     "eslint-plugin-node": "^6.0.1",
     "jest": "^23.1.0",
     "jest-coverage-badges": "^1.0.0",
