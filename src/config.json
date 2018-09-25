@@ -1,13 +1,28 @@
 {
-  "testDirectory": "/Users/patrickhoydar/src/melody/sl-components/src",
+  "testDirectory": "/Users/patrickhoydar/src/rhythm/packages",
   "passingCoveragePercentage": 70,
   "ignoredExportedModules": [
-    "MelodySvg",
-    "MelodyTheme"
+    "Analytics",
+    "setAppElementForModal",
+    "CloseDropdownConsumer",
+    "createPlaceholderBars",
+    "CircleButton",
+    "PillButton",
+    "Socket",
+    "HelpText",
+    "AvailabilityContainer",
+    "PanelHeader",
+    "PanelFooter",
+    "PanelTabbedNav",
+    "Label",
+    "RhythmSvg"
   ],
   "walkSyncStoryBookFilesConfig": {
     "globs": [
       "**/*.stories.js"
+    ],
+    "ignore": [
+      "**/node_modules"
     ]
   },
   "walkSyncEntryPointFilesConfig": {
@@ -15,7 +30,10 @@
       "**/index.js"
     ],
     "ignore": [
-      "scout-api/index.js"
+      "**/user-jwt-token-refresher/**",
+      "theme/src",
+      "**/node_modules",
+      "**/common/src/RhythmSvg"
     ]
   }
 }

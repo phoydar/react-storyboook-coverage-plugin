@@ -4,7 +4,6 @@
   "description": "Calculates storybook coverage of exported react modules",
   "main": "index.js",
   "scripts": {
-    "prepublish": "jest && npm run prettier:check && npm run eslint:check",
     "test": "jest",
     "test:coverage": "npm run test -- --coverage",
     "test:badges": "npm run test:coverage  && jest-coverage-badges",
