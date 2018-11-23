@@ -20,9 +20,14 @@ const getModuleNames = allLines => {
 
   allLines.forEach(line => {
     const match = line.match(exportNameRegex)
-    const moduleName = match[1].trim()
+    let moduleName;
 
-    if (!config.ignoredExportedModules.includes(moduleName)) {
+    if(match){
+      moduleName = match[1].trim()
+    }
+
+    if (moduleName && !config.ignoredExportedModules.includes(moduleName)) {
+      console.log(`module name: ${moduleName}`);
       moduleNames.push(moduleName)
     }
   })

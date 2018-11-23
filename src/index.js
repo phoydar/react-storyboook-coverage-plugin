@@ -15,6 +15,9 @@ const userConfig = explorer.searchSync()
 // default config options
 const config = merge(defaultConfig, (userConfig || {}).config)
 
+const arg = process.argv[2];
+const isVerbose = ['-v', '--verbose'].includes(arg)
+
 const testDirectory = `${config.testDirectory}`
 const walkSyncStoryBookFilesConfig = config.walkSyncStoryBookFilesConfig
 const walkSyncEntryPointFilesConfig = config.walkSyncEntryPointFilesConfig
@@ -49,29 +52,33 @@ module.exports = () => {
 
   coverageStyling = coveragePercentage < config.passingCoveragePercentage ? 'bold.red' : 'bold.green'
 
-  console.log(chalk `
+  if (isVerbose) {
+    console.log(chalk `
 {bold Storybook Coverage Report}
 --------------------------------------
 {${coverageStyling} Storybook Coverage: ${coveragePercentage}}
 Storybook Files: {bold ${allStoryBookFiles.length}}
 Exported modules: {bold ${exportedModules.length}}
 Exported and has a story: {bold ${exportedAndHasStory.length}}
-  `)
+    `)
 
-  if (uncoveredComponents) {
-    console.log(chalk `
+    if (uncoveredComponents) {
+      console.log(chalk `
 {bold Modules without stories}
 --------------------------------------
 ${uncoveredComponents.join('\n')}
-    `)
-  }
+      `)
+    }
 
-  if (storybookFileExportedFileDifference) {
-    console.warn(chalk `
+    if (storybookFileExportedFileDifference) {
+      console.warn(chalk `
 {yellow.bold You have ${storybookFileExportedFileDifference} Storybook file(s) \nwith no corresponding export}
 --------------------------------------
 ${storyWithNoExport.join('\n')}
-    `)
+      `)
+    }
+  } else {
+    console.log(chalk `{${coverageStyling} Storybook Coverage: ${coveragePercentage}%}`)
   }
 
   if (coveragePercentage < config.passingCoveragePercentage) {
