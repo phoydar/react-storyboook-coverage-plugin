@@ -1,54 +1,61 @@
-'use strict'
+'use strict';
 
-const fs = require('fs')
+const fs = require('fs');
 
-const config = require('../src/config.json')
-const getFilePaths = require('../src/getFilePaths')
+const config = require('../src/config.json');
+const getFilePaths = require('../src/getFilePaths');
 
 const getExportedModuleNames = (testDirectory, walkSyncEntryPointFilesConfig) => {
-  let allFilePaths = getFilePaths(testDirectory, walkSyncEntryPointFilesConfig)
-  let allLines = getAllLines(allFilePaths)
-  let exportedModuleNames = getModuleNames(allLines)
+	let allFilePaths = getFilePaths(testDirectory, walkSyncEntryPointFilesConfig);
+	let allLines = getAllLines(allFilePaths);
+	let allExportedModules = getModuleNames(allLines);
 
-  return exportedModuleNames
-}
+	allExportedModules = allExportedModules.filter((module) => {
+		if (!config.ignoredExportedModules.includes(module)) {
+			return module;
+		}
+	});
 
-const getModuleNames = allLines => {
-  const exportNameRegex = /export {(.*)}/
+	return allExportedModules;
+};
 
-  let moduleNames = []
+const getModuleNames = (allLines) => {
+	const exportNameRegex = /export {(.*)}/;
 
-  allLines.forEach(line => {
-    const match = line.match(exportNameRegex)
-    let moduleName;
+	let filteredLines = allLines.filter((line) => {
+		let isValidExport = !line.includes('*') && !line.includes('//');
 
-    if(match){
-      moduleName = match[1].trim()
-    }
+		if (isValidExport) {
+			return line;
+		}
+	});
 
-    if (moduleName && !config.ignoredExportedModules.includes(moduleName)) {
-      console.log(`module name: ${moduleName}`);
-      moduleNames.push(moduleName)
-    }
-  })
+	let matches = filteredLines.map((line) => {
+		const match = line.match(/export { (.*) }/);
 
-  return moduleNames
-}
+		return match[1].split(', ');
+	});
 
-const getAllLines = allFilePaths => {
-  let allLines = []
+	var merged = [].concat.apply([], matches);
 
-  allFilePaths.forEach(filePath => {
-    const linesArray = fs.readFileSync(filePath, 'utf8').split('\n')
+	return merged;
+};
 
-    linesArray.forEach(line => {
-      if (line) {
-        allLines.push(line)
-      }
-    })
-  })
+const getAllLines = (allFilePaths) => {
+	let allLines = [];
 
-  return allLines
-}
+	allFilePaths.forEach((filePath) => {
+		const fileContents = fs.readFileSync(filePath, 'utf8');
+		const linesArray = fileContents.replace(/\n\s/g, '').replace(/,\n/, ' ').split('\n');
 
-module.exports = getExportedModuleNames
+		linesArray.forEach((line) => {
+			if (line) {
+				allLines.push(line);
+			}
+		});
+	});
+
+	return allLines;
+};
+
+module.exports = getExportedModuleNames;
