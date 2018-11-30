@@ -1,22 +1,6 @@
 {
   "testDirectory": "/Users/patrickhoydar/src/rhythm/packages",
   "passingCoveragePercentage": 70,
-  "ignoredExportedModules": [
-    "Analytics",
-    "setAppElementForModal",
-    "CloseDropdownConsumer",
-    "createPlaceholderBars",
-    "CircleButton",
-    "PillButton",
-    "Socket",
-    "HelpText",
-    "AvailabilityContainer",
-    "PanelHeader",
-    "PanelFooter",
-    "PanelTabbedNav",
-    "Label",
-    "RhythmSvg"
-  ],
   "walkSyncStoryBookFilesConfig": {
     "globs": [
       "**/*.stories.js"
@@ -26,14 +10,6 @@
     ]
   },
   "walkSyncEntryPointFilesConfig": {
-    "globs": [
-      "**/index.js"
-    ],
-    "ignore": [
-      "**/user-jwt-token-refresher/**",
-      "theme/src",
-      "**/node_modules",
-      "**/common/src/RhythmSvg"
-    ]
+    "globs": ["**/index.js"]
   }
 }

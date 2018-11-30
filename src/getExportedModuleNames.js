@@ -10,8 +10,8 @@ const getExportedModuleNames = (testDirectory, walkSyncEntryPointFilesConfig) =>
   let allLines = getAllLines(allFilePaths)
   let allExportedModules = getModuleNames(allLines)
 
-  allExportedModules = allExportedModules.filter((module) => {
-    if(!config.ignoredExportedModules.includes(module)){
+  allExportedModules = allExportedModules.filter(module => {
+    if (!config.ignoredExportedModules.includes(module)) {
       return module
     }
   })
@@ -19,24 +19,22 @@ const getExportedModuleNames = (testDirectory, walkSyncEntryPointFilesConfig) =>
   return allExportedModules
 }
 
-const getModuleNames = allLines => {  
-  const exportNameRegex = /export {(.*)}/
-
-  let filteredLines = allLines.filter((line) => {
+const getModuleNames = allLines => {
+  let filteredLines = allLines.filter(line => {
     let isValidExport = !line.includes('*') && !line.includes('//')
-    
-    if(isValidExport){
+
+    if (isValidExport) {
       return line
     }
   })
 
   let matches = filteredLines.map(line => {
-    const match = line.match(/export { (.*) }/);
+    const match = line.match(/export { (.*) }/)
 
     return match[1].split(', ')
   })
 
-  var merged = [].concat.apply([], matches);
+  var merged = [].concat.apply([], matches)
 
   return merged
 }
@@ -46,8 +44,11 @@ const getAllLines = allFilePaths => {
 
   allFilePaths.forEach(filePath => {
     const fileContents = fs.readFileSync(filePath, 'utf8')
-    const linesArray = fileContents.replace(/\n\s/g, '').replace(/,\n/, ' ').split('\n')
-    
+    const linesArray = fileContents
+      .replace(/\n\s/g, '')
+      .replace(/,\n/, ' ')
+      .split('\n')
+
     linesArray.forEach(line => {
       if (line) {
         allLines.push(line)
