@@ -1,6 +1,6 @@
 {
   "name": "@salesloft/react-storybook-coverage-plugin",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Calculates storybook coverage of exported react modules",
   "main": "index.js",
   "scripts": {

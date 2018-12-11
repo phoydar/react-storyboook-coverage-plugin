@@ -1,0 +1,15 @@
+{
+  "testDirectory": "/Users/patrickhoydar/src/rhythm/packages",
+  "passingCoveragePercentage": 70,
+  "walkSyncStoryBookFilesConfig": {
+    "globs": [
+      "**/*.stories.js"
+    ],
+    "ignore": [
+      "**/node_modules"
+    ]
+  },
+  "walkSyncEntryPointFilesConfig": {
+    "globs": ["**/index.js"]
+  }
+}
